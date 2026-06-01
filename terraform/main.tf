@@ -62,3 +62,16 @@ module "iot" {
 
   mongodb_uri = module.database.mongodb_uri
 }
+
+module "compute" {
+  source       = "./modules/compute"
+  project_name = var.project_name
+  environment  = var.environment
+  region       = var.region
+
+  vpc_id            = var.vpc_id
+  subnet_id         = var.subnet_id
+  lab_role_arn      = data.aws_iam_role.lab_role.arn
+  sensor_table_name = module.database.sensor_table_name
+  mongodb_uri       = module.database.mongodb_uri
+}
